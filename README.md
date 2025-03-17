@@ -26,7 +26,7 @@ This is a **real-time chat messaging API** built using **NestJS, Sequelize, WebS
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-repo/chat-messaging-api.git
+git clone https://github.com/rahmatillo9/onlayin-chatB.git
 cd chat-messaging-api
 ```
 
@@ -40,7 +40,7 @@ Create a **.env** file in the root directory and add the required environment va
 ```env
 DATABASE_URL=postgres://username:password@localhost:5432/chat_db
 SOCKET_PORT=5005
-PORT=3000
+PORT=5004
 ```
 
 ### 4️⃣ Run Database Migrations
