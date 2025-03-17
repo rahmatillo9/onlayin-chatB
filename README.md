@@ -27,7 +27,7 @@ This is a **real-time chat messaging API** built using **NestJS, Sequelize, WebS
 ### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/rahmatillo9/onlayin-chatB.git
-cd chat-messaging-api
+cd onlayin-chatB
 ```
 
 ### 2️⃣ Install Dependencies
