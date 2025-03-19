@@ -4,6 +4,7 @@ import { SessionsController } from './sessions.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from 'src/users/user.entity';
 import { Session } from './sessions.entity';
+import { SessionsGateway } from './sessionsgetway';
 
 
 @Module({
@@ -11,7 +12,7 @@ import { Session } from './sessions.entity';
   imports: [
     SequelizeModule.forFeature([User, Session ]),
   ],
-  providers: [SessionsService],
+  providers: [SessionsService, SessionsGateway],
   controllers: [SessionsController],
   exports: [SessionsService],
 })

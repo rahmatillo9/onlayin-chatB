@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { User } from './user.entity';
 import { InjectModel } from '@nestjs/sequelize';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import * as crypto from 'crypto';
 import { MailService } from 'src/mail/mail.service';
 import { CreateUsersDto, UpdateUserDto } from 'src/validators/users.validator';
@@ -64,7 +64,13 @@ export class UsersService {
   
 
   async validatePassword(plainTextPassword: string, hashedPassword: string): Promise<boolean> {
-    return bcrypt.compare(plainTextPassword, hashedPassword); 
+    if (!plainTextPassword || !hashedPassword) {
+      console.log('Validation error: Password or hash is missing');
+      throw new Error('Password or hashed password is missing');
+    }
+    const isValid = await bcrypt.compare(plainTextPassword, hashedPassword);
+    console.log('Password validation result:', isValid);
+    return isValid;
   }
 
   async findBynickname(username: string) {
@@ -94,18 +100,14 @@ export class UsersService {
     return userProfile.update(updateUserProfileDto);
   }
 
-  async findByUsernameOrEmail(identifier: string) {
-    const user = await this.userModel.findOne({
-      where: {
-        [Op.or]: [{ username: identifier }, { email: identifier }],
+  async findByUsernameOrEmail(identifier: string): Promise<User | null> {
+    return this.userModel.findOne({
+      where: { 
+        [Op.or]: [{ username: identifier }, { email: identifier }] 
       },
-      attributes: { exclude: ['password'] }, // ✅ Faqat parolni yashirish
+      // raw: true bo‘lsa, olib tashlang yoki kommentga oling
     });
-  
-    console.log('User:', user); // Tekshirish uchun log
-    return user;
   }
-  
   
   
 

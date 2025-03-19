@@ -2,7 +2,7 @@ import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/commo
 import { UsersService } from './users.service';
 import { loginDto } from 'src/validators/login.validator'; 
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -13,7 +13,7 @@ export class AuthController {
   
   @Post('login')
   async login(@Body() loginDto: loginDto) {
-    console.log('Login request:', loginDto); // Debug uchun
+    console.log('Login request:', loginDto);
   
     const identifier = loginDto.username || loginDto.email;
     const password = loginDto.password;
@@ -23,11 +23,19 @@ export class AuthController {
     }
   
     const user = await this.usersService.findByUsernameOrEmail(identifier);
+
     if (!user) {
       throw new HttpException('Invalid username or email', HttpStatus.NOT_FOUND);
     }
   
-    const isPasswordValid = await this.usersService.validatePassword(password, user.password);
+    // user.password o‘rniga user.dataValues.password ishlatamiz
+    const userPassword = user.dataValues.password;
+    if (!userPassword) {
+      throw new HttpException('User password not found in database', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  
+    const isPasswordValid = await this.usersService.validatePassword(password, userPassword);
+
     if (!isPasswordValid) {
       throw new HttpException('Invalid password', HttpStatus.UNAUTHORIZED);
     }

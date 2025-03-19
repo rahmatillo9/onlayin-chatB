@@ -6,13 +6,14 @@ import { User } from 'src/users/user.entity';
 import { Chat } from './chats.entity';
 import { Message } from 'src/messages/messages.entity';
 import { MessagesService } from 'src/messages/messages.service';
+import { ChatsGateway } from './chatGetway';
 
 @Module({
 
   imports: [
     SequelizeModule.forFeature([User, Chat, Message ]),
   ],
-  providers: [ChatsService, MessagesService],
+  providers: [ChatsService, MessagesService, ChatsGateway],
   controllers: [ChatsController],
   exports: [ChatsService],
 })

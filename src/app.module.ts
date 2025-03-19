@@ -23,12 +23,12 @@ dotenv.config();
       autoLoadModels: true,
       synchronize: true,
 
-      pool: {
-        max: 10, // Eng ko‘p 10 ta ulanish
-        min: 2,  // Eng kamida 2 ta ulanish
-        acquire: 30000, // 30s ichida ulana olmasa, timeout
-        idle: 10000, // 10s harakatsiz bo‘lsa, ulanish yopiladi
-      },
+      // pool: {
+      //   max: 10, // Eng ko‘p 10 ta ulanish
+      //   min: 2,  // Eng kamida 2 ta ulanish
+      //   acquire: 30000, // 30s ichida ulana olmasa, timeout
+      //   idle: 10000, // 10s harakatsiz bo‘lsa, ulanish yopiladi
+      // },
     }),
    MessagesModule,
    ChatsModule,

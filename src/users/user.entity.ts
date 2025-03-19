@@ -30,6 +30,7 @@ export class User extends Model<User> {
   role!: string;
 
   @Column({
+    
     type: DataType.STRING,
     unique: true,
     allowNull: false,

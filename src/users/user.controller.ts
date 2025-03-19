@@ -25,15 +25,15 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.Admin)
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles(Role.Admin)
   @Get()
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.Admin, Role.Customer)
+  // @Roles(Role.Admin, Role.Customer)
 
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<User> {

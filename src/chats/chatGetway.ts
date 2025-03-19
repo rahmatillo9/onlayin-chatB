@@ -5,9 +5,9 @@ import { ChatsService } from './chats.service';
 
 dotenv.config();
 
-const socketPort = process.env.SOCKET_PORT ? parseInt(process.env.SOCKET_PORT, 10) : 5005;
+// const socketPort = process.env.SOCKET_PORT ? parseInt(process.env.SOCKET_PORT, 10) : 5005;
 
-@WebSocketGateway(socketPort, { cors: { origin: "*" } })
+@WebSocketGateway(5005, { cors: { origin: "*" } })
 export class ChatsGateway {
     @WebSocketServer() server: Server;
 
